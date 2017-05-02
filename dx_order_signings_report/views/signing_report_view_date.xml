@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="dx_order_signings_report.report_signings_date_header">
+            <div class="header">
+                <table class="table table-condensed" style="width: 100%; font-size: 14px; border: 2px solid black;">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 12%;">TERM:</th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 49%;" t-esc="get_period()"></th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 20%;">GROUP BY:</th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 19%;">Date</th>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 12%;">EMPLOYEE:</th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 49%;" t-esc="get_employee()"></th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 20%;">PROCUREMENT ORDER:</th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 19%;" t-esc="get_order()"></th>
+                        </tr>
+                    </thead>
+                </table>
+                <table style="font-size: 12px; border: 2px solid black; width: 100%;">
+                    <tr style="padding-left: 8px;">
+                        <th style="padding: 10px 110px 10px 110px; vertical-align: middle; vertical-align: middle; text-align: center; font-size: 14px;">
+                            <strong>SIGNINGS REPORT</strong>
+                        </th>
+                    </tr>
+                </table>
+                <br/>
+            </div>
+        </template>
+        <template id="dx_order_signings_report.report_signings_date" name="Reporte de fichajes de Orden wizard">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="dx_order_signings_report.report_signings_date_header"/>
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="row">
+                              <p t-if="not get_dates()"  style="font-weight: bold; text-align: center;">No hay ningun fichaje en este rango de fechas.
+                              </p>
+                                <t t-foreach="get_dates()" t-as="d">
+                                    <table class="table table-condensed" style="width: 100%; font-size: 12px;">
+                                        <thead>
+                                            <tr style="border: solid 1px; background-color: #E0E0E0">
+                                                <td colspan="5" t-esc="d['format_date']"></td>
+                                            </tr>
+                                        </thead>
+                                        <tr style="border: solid 1px;">
+                                            <th style="border: solid 1px; vertical-align: middle; width: 14%;">Employee</th>
+                                            <th style="border: solid 1px; vertical-align: middle; width: 6%;">Start</th>
+                                            <th style="border: solid 1px; vertical-align: middle; width: 6%;">End</th>
+                                            <th style="border: solid 1px; vertical-align: middle; width: 10%;">Order</th>
+                                            <th style="border: solid 1px; vertical-align: middle; text-align: center; text-align: right; width: 6%;">Hours</th>
+                                        </tr>
+                                        <tr style="border: solid 1px;" t-foreach="get_signings(d['date'])" t-as="l">
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['employee']"></span>
+                                            </td>
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['start_time']"></span>
+                                            </td>
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['end_time']"></span>
+                                            </td>
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['order_prod']"></span>
+                                            </td>
+                                            <td style="border: solid 1px; text-align: right;">
+                                                <span t-esc="'%.2f'%(l['hours'])"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: solid 1px; text-align: right" colspan="4">
+                                                <strong>TOTAL:</strong>
+                                            </th>
+                                            <th style="border: solid 1px; text-align: right;">
+                                                <span t-esc="'%.2f'%(get_total_signings(d['date']))"></span>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <template id="signings_report_d">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'dx_order_signings_report.dx_order_signings_report.report_signings_date')"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

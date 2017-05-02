@@ -1,0 +1,216 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dx_347_letter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-02 08:25+0000\n"
+"PO-Revision-Date: 2017-05-02 08:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dx_347_letter
+#: model:email.template,body_html:dx_347_letter.email_letter_347
+msgid "  <p>Muy Sres. nuestros:</p>\n"
+"              <p>The reason for this letter is to inform you that, in accordance with current legislation and for the purpose of making the annual declaration \n"
+"                of operations with third parties, the total number of transactions carried out with you in the previous year, according to Our notes, amounts \n"
+"                to the amount reflected in the attached document.</p><br/><p>In case there is any difference with your accounts, please be advised to communicate\n"
+"                 it as soon as possible, otherwise, we will give the quantity indicated accordingly.</p>\n"
+"                  <br/>\n"
+"                  <p>We take this opportunity to greet you.</p> "
+msgstr "  <p>Muy Sres. nuestros:</p>\n"
+"              <p>El motivo de la presente es para comunicarles, que de acuerdo con la legislación vigente y a efectos de realizar la declaración anual de operaciones con terceros, el total de operaciones efectuadas con Vd.(s) en el ejercicio anterior, según\n"
+"                  nuestros apuntes, asciende al importe reflejado en el documento adjunto.</p><br/><p>En caso de existir alguna diferencia con sus cuentas, rogamos se sirvan comunicarlo con la mayor brevedad posible, de lo contrario, daremos por conforme la cantidad indicada.</p>\n"
+"                  <br/>\n"
+"                  <p>Aprovechamos la ocasión para saludarles atentamente.</p> "
+
+#. module: dx_347_letter
+#: code:addons/dx_347_letter/report/report_347.py:37
+#: code:addons/dx_347_letter/report/report_347.py:38
+#: code:addons/dx_347_letter/report/report_347_letter.py:42
+#: code:addons/dx_347_letter/report/report_347_letter.py:43
+#, python-format
+msgid "  of  "
+msgstr "  de  "
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "1st Quarter amount"
+msgstr "Importe 1º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "1º Quarter amount"
+msgstr "Importe 1º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "2nd Quarter amount"
+msgstr "Importe 2º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "2º Quarter amount"
+msgstr "Importe 2º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "3rd Quarter amount"
+msgstr "Importe 3º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "3º Quarter amount"
+msgstr "Importe 3º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "4th Quarter amount"
+msgstr "Importe 4º trimestre"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "4º Quarter amount"
+msgstr "Importe 4º trimestre"
+
+#. module: dx_347_letter
+#: model:ir.model,name:dx_347_letter.model_l10n_es_aeat_mod347_report
+msgid "AEAT 347 Report"
+msgstr "Informe AEAT 347"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "CIF:"
+msgstr "CIF:"
+
+#. module: dx_347_letter
+#: model:email.template,subject:dx_347_letter.email_letter_347
+msgid "Communication of operations for the 347 report"
+msgstr "Comunicación de operaciones para el informe 347"
+
+#. module: dx_347_letter
+#: model:ir.model,name:dx_347_letter.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "Dear customer:"
+msgstr "Muy Sres. nuestros:"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "E-mail:"
+msgstr "E-mail:"
+
+#. module: dx_347_letter
+#: field:res.company,signature:0
+msgid "Email signature"
+msgstr "firma email"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "Fax:"
+msgstr "Fax:"
+
+#. module: dx_347_letter
+#: field:res.partner,email_count:0
+msgid "Financial Email"
+msgstr "Email financiero"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "In case there is any difference with your accounts, please be advised to communicate it as soon as possible,\n"
+"                                   otherwise, we will give the quantity indicated accordingly."
+msgstr "En caso de existir alguna diferencia con sus cuentas, rogamos se sirvan comunicarlo con la mayor brevedad posible, de lo contrario, daremos por conforme la cantidad indicada."
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "In case there is any difference with your accounts, please be advised to communicate it as soon as possible, otherwise, we will give the quantity indicated accordingly."
+msgstr "En caso de existir alguna diferencia con sus cuentas, rogamos se sirvan comunicarlo con la mayor brevedad posible, de lo contrario, daremos por conforme la cantidad indicada."
+
+#. module: dx_347_letter
+#: model:ir.actions.report.xml,name:dx_347_letter.report_347
+#: model:ir.actions.report.xml,name:dx_347_letter.report_347_individual
+msgid "Letter_347"
+msgstr "Carta_347"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "PAGE 1 / 1"
+msgstr "PÁGINA 1 / 1"
+
+#. module: dx_347_letter
+#: model:ir.model,name:dx_347_letter.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: dx_347_letter
+#: model:ir.model,name:dx_347_letter.model_l10n_es_aeat_mod347_partner_record
+msgid "Partner Record"
+msgstr "Registro de empresa"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "Phone"
+msgstr "Tel."
+
+#. module: dx_347_letter
+#: model:ir.actions.server,name:dx_347_letter.send_letter_mail
+msgid "Send letter by Email"
+msgstr "Enviar carta por email"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "TOTAL PURCHASES :"
+msgstr "TOTAL COMPRAS :"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "TOTAL SALES :"
+msgstr "TOTAL VENTAS :"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+msgid "The reason for this letter is to inform you that, in accordance with current legislation and for the purpose\n"
+"                               of making the annual declaration of operations with third parties,\n"
+"                               the total number of transactions carried out with you in the previous year, according to Our notes amount to:"
+msgstr "El motivo de la presente es para comunicarles, que de acuerdo con la legislación vigente y a efectos de realizar la declaración anual de operaciones con terceros, el total de operaciones efectuadas con Vd.(s) en el ejercicio anterior, según\n"
+"                                nuestros apuntes, asciende a:"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "The reason for this letter is to inform you that, in accordance with current legislation and for the purpose of making the annual declaration of operations with third parties, the total number of transactions carried out with you in the previous\n"
+"                                    year, according to Our notes amount to:"
+msgstr "El motivo de la presente es para comunicarles, que de acuerdo con la legislación vigente y a efectos de realizar la declaración anual de operaciones con terceros, el total de operaciones efectuadas con Vd.(s) en el ejercicio anterior, según\n"
+"                                    nuestros apuntes asciende a:"
+
+#. module: dx_347_letter
+#: help:res.partner,email_count:0
+msgid "This field is for the Financial Email for 347 letter"
+msgstr "Este campo es para el email financiero de la carta 347"
+
+#. module: dx_347_letter
+#: help:res.company,signature:0
+msgid "This field is for the signature for 347 letter"
+msgstr "Este campo es para la firma de la carta 347"
+
+#. module: dx_347_letter
+#: view:website:dx_347_letter.report_347_letter
+#: view:website:dx_347_letter.report_347_report
+msgid "We take this opportunity to greet you."
+msgstr "Aprovechamos la ocasión para saludarles atentamente."

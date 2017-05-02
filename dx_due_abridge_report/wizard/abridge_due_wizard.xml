@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_due_wizard" model="ir.ui.view">
+            <field name="name">Due List</field>
+            <field name="model">dx_due_abridge_report.abridge_due_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Due shorten list">
+                    <label colspan="2" string="This menu prints a shorten list of dues Select one or several periods of the fiscal year."/>
+                    <group string="Due date" col="4">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group string="Tipo de efecto" col="4">
+                      <field name="report_mode"></field>
+                      <field name="reconcile"></field>
+                      <field name="payment_type"></field>
+                    </group>
+                    <group string="Payment mode" col="1">
+                        <field name="payment_mode"></field>
+                    </group>
+                    <!-- <field name="payment_mode_test"></field> -->
+                    <group>
+                      <field name="file_name" invisible="1"/>
+                      <field name="file" readonly="1" filename="file_name" nolabel="1"/>
+                      <button icon="gtk-ok" name="export_xls_payment" string="Export Excel" type="object" />
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print Due List" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_due_list" model="ir.actions.act_window">
+            <field name="name">Due list</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dx_due_abridge_report.abridge_due_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_due_wizard"/>
+            <field name="target">new</field>
+        </record>
+        <record id="xls_report_view_tree" model="ir.ui.view">
+          <field name="name">xls.report.view.tree</field>
+          <field name="model">xls.report</field>
+          <field name="arch" type="xml">
+            <tree string="xls tree">
+              <field name="name"/>
+            </tree>
+          </field>
+        </record>
+
+        <record id="xls_report_view" model="ir.ui.view">
+          <field name="name">xls.report.view</field>
+          <field name="model">xls.report</field>
+          <field name="arch" type="xml">
+            <form string="Xlsreprot Form">
+              <header>
+                <button name="report_xls" string="Print xls" type="object" class="oe_highlight"/>
+                or
+                <button string="Cancel" class="oe_link" special="cancel"/>
+              </header>
+              <sheet>
+                <group>
+                  <field name="name"/>
+                </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="xls_report_action" model="ir.actions.act_window">
+          <field name="name">xls Report</field>
+          <field name="res_model">xls.report</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <!-- <menuitem action="xls_report_action" id="action_xls_report_action" parent="account.menu_finance_entries" name="Export XLS" sequence="4"/> -->
+
+        <menuitem action="action_due_list" id="action_menu_due_list" parent="account.menu_finance_entries" name="Due List" sequence="5"/>
+    </data>
+</openerp>

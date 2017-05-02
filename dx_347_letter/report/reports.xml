@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+      <!-- desplegable imprimir todos los documentos 347-->
+      <report id="report_347"
+        string="Letter_347"
+        model="l10n.es.aeat.mod347.report"
+        report_type="qweb-pdf"
+        name="dx_347_letter.report_347_report"
+        file="dx_347_letter.report_347_report"
+        menu="True"/>
+      <!-- desplegable imprimir todos los documentos 347 individuales-->
+      <report id="report_347_individual"
+        string="Letter_347"
+        model="l10n.es.aeat.mod347.partner_record"
+        report_type="qweb-pdf"
+        name="dx_347_letter.report_347_letter"
+        file="dx_347_letter.report_347_letter"
+        menu="True"/>
+
+        <!-- Nueva acción para el boton mas -->
+      <record id="send_letter_mail" model="ir.actions.server">
+        <field name="name">Send letter by Email</field>
+        <field name="model_id" ref="model_l10n_es_aeat_mod347_partner_record"/>
+        <field name="state">code</field>
+        <field name="code">action = self.email_letter(cr, uid, context.get('active_ids'), context=context)</field>
+      </record>
+
+      <!-- Nueva opcion del boton mas -->
+      <record id="id_send_letter_mail" model="ir.values">
+        <field eval="'client_action_multi'"
+          name="key2"/>
+          <field eval="'l10n.es.aeat.mod347.partner_record'" name="model"/>
+          <field name="name">Send letter by Email</field>
+          <field eval="'ir.actions.server,%d'%send_letter_mail" name="value"/>
+        </record>
+  </data>
+</openerp>

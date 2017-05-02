@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="dx_order_signings_report.report_signings_employee_header">
+            <div class="header">
+                <table class="table table-condensed" style="width: 100%; font-size: 14px; border: 2px solid black;">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 12%;">TERM:</th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 49%;" t-esc="get_period()"></th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 20%;">GROUP BY:</th>
+                            <th style="vertical-align: middle; border-bot: hidden; text-align: left; width: 19%;">Employee</th>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 12%;">EMPLOYEE:</th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 49%;" t-esc="get_employee()"></th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 20%;">PROCUREMENT ORDER:</th>
+                            <th style="vertical-align: middle; border-top: hidden; text-align: left; width: 19%;" t-esc="get_order()"></th>
+                        </tr>
+                    </thead>
+                </table>
+                <table style="font-size: 12px; border: 2px solid black; width: 100%;">
+                    <tr style="padding-left: 8px;">
+                        <th style="padding: 10px 110px 10px 110px; vertical-align: middle; vertical-align: middle; text-align: center; font-size: 14px;">
+                            <strong>SIGNINGS REPORT</strong>
+                        </th>
+                    </tr>
+                </table>
+                <br/>
+            </div>
+        </template>
+        <template id="dx_order_signings_report.report_signings_employee" name="Reporte de fichajes de Orden wizard">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="dx_order_signings_report.report_signings_employee_header"/>
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="row">
+                              <p t-if="not get_employees()"  style="font-weight: bold; text-align: center;">No hay ningun fichaje en este rango de fechas.
+                              </p>
+                                <t t-foreach="get_employees()" t-as="e">
+                                    <table class="table table-condensed" style="width: 100%; font-size: 12px;">
+                                        <thead>
+                                            <tr style="border: solid 1px; background-color: #E0E0E0; font-weight: bold;">
+                                                <td colspan="4" t-esc="e['name']+' ('+e['internal_code']+')'"></td>
+                                            </tr>
+                                        </thead>
+                                        <tr style="border: solid 1px;">
+                                            <th style="border: solid 1px; vertical-align: middle; width: 19%;">Date from</th>
+                                            <th style="border: solid 1px; vertical-align: middle; width: 19%;">Date up to</th>
+                                            <th style="border: solid 1px; vertical-align: middle; width: 45%;">Orden</th>
+                                            <th style="border: solid 1px; vertical-align: middle; text-align: right; width: 19%;">Hours</th>
+                                        </tr>
+                                        <tr style="border: solid 1px;" t-foreach="get_signings(e['id'])" t-as="l">
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['start_date']"></span>
+                                            </td>
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['end_date']"></span>
+                                            </td>
+                                            <td style="border: solid 1px;">
+                                                <span t-esc="l['order_prod']"></span>
+                                            </td>
+                                            <td style="border: solid 1px; text-align: right;">
+                                                <span t-esc="'%.2f'%(l['hours'])"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: solid 1px; text-align: right" colspan="3">
+                                                <strong>TOTAL:</strong>
+                                            </th>
+                                            <th style="border: solid 1px; text-align: right;">
+                                                <span t-esc="'%.2f'%(get_total_signings(e['id']))"></span>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <template id="signings_report_e">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'dx_order_signings_report.dx_order_signings_report.report_signings_employee')"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

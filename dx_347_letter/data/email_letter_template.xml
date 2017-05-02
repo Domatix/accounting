@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="email_letter_347" model="email.template">
+            <field name="name">Email 347 letter</field>
+            <field name="model_id" ref="model_l10n_es_aeat_mod347_partner_record"/>
+            <field name="email_from">${object.report_id.company_id.email|safe}</field>
+            <field name="email_to" >${object.partner_id.email_count|safe}</field>
+            <field name="lang"></field>
+            <field name="subject">Communication of operations for the 347 report</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[  <p>Muy Sres. nuestros:</p>
+              <p>The reason for this letter is to inform you that, in accordance with current legislation and for the purpose of making the annual declaration 
+                of operations with third parties, the total number of transactions carried out with you in the previous year, according to Our notes, amounts 
+                to the amount reflected in the attached document.</p><br/><p>In case there is any difference with your accounts, please be advised to communicate
+                 it as soon as possible, otherwise, we will give the quantity indicated accordingly.</p>
+                  <br/>
+                  <p>We take this opportunity to greet you.</p> ]]></field>
+        </record>
+    </data>
+</openerp>
