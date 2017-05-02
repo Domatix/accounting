@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <template id="dx_iva_record.report_iva_record" name="Registro de iva">
+      <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="report.external_layout">
+            <div class="page">
+              <div class="row mt32 mb32">
+                <div class="col-xs-3">
+                  <strong>Chart of Tax:</strong>
+                  <p t-esc="o['chart_tax_id'].name"/>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Empresas:</strong>
+                  <p t-esc="get_partner()"/>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Fiscal Year:</strong>
+                  <p t-esc="o['fiscalyear_id'].name"/>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Periods:</strong>
+                  <p>
+                    Start Period:
+                    <span t-esc="get_format_date('start')"/><br/>
+                    End Period:
+                    <span t-esc="get_format_date('end')"/>
+                  </p>
+                </div>
+              </div>
+              <h1>Registro de IVA</h1>
+              <t t-foreach="get_data()" t-as="data">
+                <table class="table table-condensed" style="width: 100%; font-size: 12px; border-left: solid 1px;">
+                  <t t-set="cabecera" t-value="1"/>
+                  <tr t-foreach="data" t-as="l">
+                    <div t-if="cabecera">
+                      <thead>
+                        <th colspan="10" style="border: solid 1px; vertical-align: middle; background-color: #E0E0E0;" t-esc="l['name']"></th>
+                        <tr style="border: solid 1px;">
+                          <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha Asiento</th>
+                          <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: center;">Cuenta</th>
+                          <th style="border: solid 1px; width:33%; vertical-align: middle;">Cliente</th>
+                          <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Cif</th>
+                          <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: center;">Factura</th>
+                          <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha</th>
+                          <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: right;">Base</th>
+                          <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: right;">Impuesto</th>
+                          <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: right;">Base+Impuesto</th>
+                          <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: right;">Total factura</th>
+                        </tr>
+                      </thead>
+                      <t t-set="cabecera" t-value="0"/>
+                    </div>
+                    <td style="border: solid 1px; text-align: center;">
+                      <span t-esc="l['fechaAsiento']"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: center;">
+                      <span t-esc="l['cuenta']"></span>
+                    </td>
+                    <td style="border: solid 1px;">
+                      <span t-esc="l['partner']"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: center;">
+                      <span t-esc="l['cif']"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: center;">
+                      <span t-esc="l['factura']"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: center;">
+                      <span t-esc="l['fecha']"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(l['base']).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(l['cuota']).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(l['total']).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(l['totalFactura']).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+
+                  </tr>
+                </table>
+              </t>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+    <report id="report_record_iva" string="IVA record" model="account.invoice" report_type="qweb-pdf" name="dx_iva_record.report_iva_record" file="dx_iva_record.report_iva_record" menu="False"/>
+
+    <record id="paperformat_iva_record" model="report.paperformat">
+      <field name="name">Iva Record</field>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">20</field>
+      <field name="margin_left">7</field>
+      <field name="margin_right">7</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <record id="dx_iva_record.report_record_iva" model="ir.actions.report.xml">
+      <field name="paperformat_id" ref="dx_iva_record.paperformat_iva_record"/>
+    </record>
+
+  </data>
+</openerp>
