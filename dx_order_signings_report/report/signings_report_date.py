@@ -52,10 +52,10 @@ class signings_report_date(report_sxw.rml_parse):
         })
 
     def get_period(self):
-        start_date = datetime.strptime(self.data_report['start_date'],
-                                       '%Y-%m-%d') or time
-        end_date = datetime.strptime(self.data_report['end_date'],
-                                     '%Y-%m-%d') or time
+        start_date = self.data_report and datetime.strptime(
+            self.data_report['start_date'], '%Y-%m-%d') or time
+        end_date = self.data_report and datetime.strptime(
+            self.data_report['end_date'], '%Y-%m-%d') or time
         res = start_date.strftime('%d/%m/%Y')
         res += ' - '
         res += end_date.strftime('%d/%m/%Y')
@@ -63,11 +63,10 @@ class signings_report_date(report_sxw.rml_parse):
 
     def get_employee(self):
         emp_obj = self.pool.get('hr.employee')
-
         name = _('All employees')
-
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
         if employee:
             name = '[' + employee[0].internal_code + '] ' + employee[0].name
 
@@ -76,8 +75,9 @@ class signings_report_date(report_sxw.rml_parse):
     def get_order(self):
         prod = self.pool.get('mrp.production.signing')
         name = _('All Orders')
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
         if order:
             name = self.data_report['order_id'][1]
         return name
@@ -88,10 +88,10 @@ class signings_report_date(report_sxw.rml_parse):
 
     def get_dates(self):
         res = []
-        start_date = datetime.strptime(self.data_report['start_date'],
-                                       '%Y-%m-%d') or time
-        end_date = datetime.strptime(self.data_report['end_date'],
-                                     '%Y-%m-%d') or time
+        start_date = self.data_report and datetime.strptime(
+            self.data_report['start_date'], '%Y-%m-%d') or time
+        end_date = self.data_report and datetime.strptime(
+            self.data_report['end_date'], '%Y-%m-%d') or time
         for date in self.daterange(start_date, end_date + timedelta(days=1)):
             if self.has_signings(str(date)):
                 res.append({'date': date.strftime('%Y-%m-%d'),
@@ -101,10 +101,12 @@ class signings_report_date(report_sxw.rml_parse):
     def has_signings(self, date):
         prod = self.pool.get('mrp.production.signing')
         emp_obj = self.pool.get('hr.employee')
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
 
         sql = "SELECT s.id, e.name_related , s.date_start, s.date_finished, \
                p.name "
@@ -129,10 +131,12 @@ class signings_report_date(report_sxw.rml_parse):
     def get_signings(self, date):
         prod = self.pool.get('mrp.production.signing')
         emp_obj = self.pool.get('hr.employee')
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
 
         sql = "SELECT s.id, e.name_related , s.date_start, s.date_finished, \
                p.name "

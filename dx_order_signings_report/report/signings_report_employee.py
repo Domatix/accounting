@@ -50,10 +50,10 @@ class signings_report_employee(report_sxw.rml_parse):
         })
 
     def get_period(self):
-        start_date = datetime.strptime(self.data_report['start_date'],
-                                       '%Y-%m-%d') or time
-        end_date = datetime.strptime(self.data_report['end_date'],
-                                     '%Y-%m-%d') or time
+        start_date = self.data_report and datetime.strptime(
+                     self.data_report['start_date'], '%Y-%m-%d') or time
+        end_date = self.data_report and datetime.strptime(
+                   self.data_report['end_date'], '%Y-%m-%d') or time
         res = start_date.strftime('%d/%m/%Y')
         res += ' - '
         res += end_date.strftime('%d/%m/%Y')
@@ -69,13 +69,12 @@ class signings_report_employee(report_sxw.rml_parse):
         return name
 
     def get_employees(self):
-
-        # import pdb; pdb.set_trace()
         emp_obj = self.pool.get('hr.employee')
-        employee_ids = [self.data_report['employee_id'][0]] or emp_obj.search(
-            self.cr, self.uid, [], order='name')
+        emp_ids = self.data_report and self.data_report['employee_id'] and [
+         self.data_report['employee_id'][0]] or emp_obj.search(
+                self.cr, self.uid, [], order='name')
         aux = []
-        for empl in employee_ids:
+        for empl in emp_ids:
             aux.append(empl)
             if not self.has_signings(empl):
                 aux.remove(empl)
@@ -84,15 +83,17 @@ class signings_report_employee(report_sxw.rml_parse):
 
     def has_signings(self, empl):
         prod = self.pool.get('mrp.production.signing')
-        start_date = datetime.strptime(self.data_report['start_date'],
-                                       '%Y-%m-%d') or time
-        end_date = datetime.strptime(self.data_report['end_date'],
-                                     '%Y-%m-%d') or time
+        start_date = self.data_report and datetime.strptime(
+            self.data_report['start_date'], '%Y-%m-%d') or time
+        end_date = self.data_report and datetime.strptime(
+            self.data_report['end_date'], '%Y-%m-%d') or time
         emp_obj = self.pool.get('hr.employee')
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
         sql = " SELECT s.id, e.name_related , s.date_start, s.date_finished, \
                p.name "
         sql += "FROM mrp_production_signing s "
@@ -113,8 +114,9 @@ class signings_report_employee(report_sxw.rml_parse):
     def get_order(self):
         prod = self.pool.get('mrp.production.signing')
         name = _('All Orders')
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
         if order:
             name = self.data_report['order_id'][1]
         return name
@@ -125,15 +127,17 @@ class signings_report_employee(report_sxw.rml_parse):
 
     def get_signings(self, empl):
         prod = self.pool.get('mrp.production.signing')
-        start_date = datetime.strptime(
+        start_date = self.data_report and datetime.strptime(
             self.data_report['start_date'], '%Y-%m-%d') or time
-        end_date = datetime.strptime(
+        end_date = self.data_report and datetime.strptime(
             self.data_report['end_date'], '%Y-%m-%d') or time
         emp_obj = self.pool.get('hr.employee')
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
-        order = self.data_report['order_id'] and prod.browse(
-            self.cr, self.uid, self.data_report['order_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
+                self.cr, self.uid, self.data_report['order_id'][0]) or None
         sql = "SELECT s.id, e.name_related , s.date_start, s.date_finished, \
                p.name "
         sql += "FROM mrp_production_signing s "
@@ -155,7 +159,6 @@ class signings_report_employee(report_sxw.rml_parse):
         res = []
         for ord in prod.browse(self.cr, self.uid, att_ids):
             date_s = datetime.strptime(ord.date_start, '%Y-%m-%d %H:%M:%S')
-            # import pdb; pdb.set_trace()
             vals = {
                 'employee': ord.employee_id and ord.employee_id.name or None,
                 'start_date': date_s.strftime('%d-%m-%Y %H:%M:%S'),
@@ -183,18 +186,19 @@ class signings_report_employee(report_sxw.rml_parse):
         return res
 
     def get_total_signings(self, empl):
-
         prod = self.pool.get('mrp.production.signing')
-        order = self.data_report['order_id'] and prod.browse(
+        order = self.data_report and self.data_report[
+            'order_id'] and prod.browse(
             self.cr, self.uid, self.data_report['order_id'][0]) or None
 
-        start_date = datetime.strptime(self.data_report['start_date'],
-                                       '%Y-%m-%d') or time
-        end_date = datetime.strptime(self.data_report['end_date'],
-                                     '%Y-%m-%d') or time
+        start_date = self.data_report and datetime.strptime(
+            self.data_report['start_date'], '%Y-%m-%d') or time
+        end_date = datetime.strptime(
+            self.data_report['end_date'], '%Y-%m-%d') or time
         emp_obj = self.pool.get('hr.employee')
-        employee = self.data_report['employee_id'] and emp_obj.browse(
-            self.cr, self.uid, self.data_report['employee_id'][0]) or None
+        employee = self.data_report and self.data_report[
+            'employee_id'] and emp_obj.browse(
+                self.cr, self.uid, self.data_report['employee_id'][0]) or None
         sql = " SELECT s.id, e.name_related , s.date_start, s.date_finished, \
                 p.name "
         sql += "FROM mrp_production_signing s "

@@ -18,23 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import time
-from openerp import models, api
 from openerp.osv import osv, fields
-
-# class signings_report(models.AbstractModel):
-#     _name = 'report.dx_order_signings_report.signings_report'
-#     @api.multi
-#     def render_html(self, data=None):
-#         report_obj = self.env['report']
-#         report = report_obj._get_report_from_name('dx_order_signings_report.report_signings')
-#         docargs = {
-#             'doc_ids': self._ids,
-#             'doc_model': report.model,
-#             'docs': self,
-#         }
-#         return report_obj.render('dx_order_signings_report.report_signings', docargs)
 
 
 class order_signings(osv.TransientModel):
@@ -43,9 +28,14 @@ class order_signings(osv.TransientModel):
     _columns = {
         'start_date': fields.date('Start Date', required=True),
         'end_date': fields.date('End Date', required=True),
-        'order_id': fields.many2one('mrp.production', 'Select Manufactured Order'),
-        'employee_id': fields.many2one('hr.employee', "Employee's Name", select=True),
-        'group_by': fields.selection([('employee', 'Employee'), ('date', 'Date')], 'Group by', required=True),
+        'order_id': fields.many2one('mrp.production',
+                                    'Select Manufactured Order'),
+        'employee_id': fields.many2one('hr.employee',
+                                       "Employee's Name", select=True),
+        'group_by': fields.selection([('employee', 'Employee'),
+                                      ('date', 'Date')],
+                                     'Group by',
+                                     required=True),
     }
     _defaults = {
         'start_date': lambda *a: time.strftime('%Y-%m-01'),
@@ -73,6 +63,7 @@ class order_signings(osv.TransientModel):
             'datas': datas,
             'context': context,
         }
+
 
 order_signings()
 
