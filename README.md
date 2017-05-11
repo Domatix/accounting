@@ -10,4 +10,4 @@
 | dx_order_signings_report| 8.0.1.0.0| This module prints a report for production order signings. Allows to filter by employee and production order. |
 |dx_due_abridge_report|8.0.1.0.0| This module prints a report for due lines. You can filter by date, type of due, and payment-mode. |
 |dx_347_letter|8.0.1.0.0| This module attach a 347 letter to the client when the 347 is calculated. You could too send the letter by email to the client. |
-|dx_iva_summary|8.0.1.0.0| This module prints a iva summary report filtered by date. |
+|dx_iva_summary|8.0.1.0.0| This module prints an iva summary report filtered by date. |
