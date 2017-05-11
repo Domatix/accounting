@@ -86,13 +86,13 @@ class report_347(models.Model):
                 else:
                     not_sent.append(record.partner_id.name)
         if not_sent:
-            txt += 'Could not send the email to the following recipients '
-            'because they do not have the letter 347 generated: \n'
+            txt += _('Could not send the email to the following recipients \
+            because they do not have the letter 347 generated: \n')
             for x in not_sent:
                 txt += str(x) + '\n'
         if blank_email:
-            txt += 'The email could not be sent because the following'
-            'recipients do not have a financial email in the client form: \n'
+            txt += _('The email could not be sent because the following\
+            recipients do not have a financial email in the client form: \n')
             for x in blank_email:
                 txt += str(x) + '\n'
 

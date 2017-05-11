@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, _
+from openerp import models, api, _
 from datetime import datetime
 import openerp
 import base64
@@ -26,6 +26,17 @@ import base64
 
 class report_347(models.Model):
     _inherit = "l10n.es.aeat.mod347.report"
+
+    @api.multi
+    def btn_list_records(self):
+        return {
+            'domain': "[('report_id','in'," + str(self.ids) + ")]",
+            'name': _("Partner records"),
+            'view_mode': 'tree,form',
+            'view_type': 'form',
+            'res_model': 'l10n.es.aeat.mod347.partner_record',
+            'type': 'ir.actions.act_window',
+        }
 
     def get_date(self):
         company = self.company_id.city
