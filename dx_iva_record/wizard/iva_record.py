@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #    Module created by domatix
-#    Odoo, Open Source Management Solution
+#    openerp, Open Source Management Solution
 #
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -26,14 +26,19 @@ class iva_record_wizzard(models.TransientModel):
     _name = 'dx_iva_record.iva_record_wizard'
 
     def get_data(self):
+
+        tax_codes_ids = []
+        for tax in self.tax_ids:
+            tax_codes_ids.append(tax.tax_code_id)
+
         if self.partner_type == 'supplier':
-            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date', '>=', self.date_start), ('invoice_id.date', '<=', self.date_end), ('tax_code_id.id', 'in', self.tax_ids.ids), ('company_id', '=', self.company_id.id), ('invoice_id.state', 'in', ['open', 'paid']), ('invoice_id.type', 'in', ['in_invoice', 'in_refund'])])
+            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date_invoice', '>=', self.date_start), ('invoice_id.date_invoice', '<=', self.date_end), ('tax_code_id.id', 'in', tax_codes_ids[0].ids), ('company_id', '=', self.company_id.id), ('invoice_id.state', 'in', ['open', 'paid']), ('invoice_id.type', 'in', ['in_invoice', 'in_refund'])])
         elif self.partner_type == 'client':
-            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date', '>=', self.date_start), ('invoice_id.date', '<=', self.date_end), ('tax_code_id.id', 'in', self.tax_ids.ids), ('company_id', '=', self.company_id.id), ('invoice_id.state', 'in', ['open', 'paid']), ('invoice_id.type', 'in', ['out_invoice', 'out_refund'])])
+            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date_invoice', '>=', self.date_start), ('invoice_id.date_invoice', '<=', self.date_end), ('tax_code_id.id', 'in', tax_codes_ids[0].ids), ('company_id', '=', self.company_id.id), ('invoice_id.state', 'in', ['open', 'paid']), ('invoice_id.type', 'in', ['out_invoice', 'out_refund'])])
         else:
-            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date', '>=', self.date_start), ('tax_code_id.id', 'in', self.tax_ids.ids), ('invoice_id.date', '<=', self.date_end)])
-        positive = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed_signed > 0 and 'igic' not in r.name)
-        negative = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed_signed < 0 and 'igic' not in r.name)
+            invoice_tax_obj = self.env['account.invoice.tax'].search([('invoice_id.date_invoice', '>=', self.date_start), ('tax_code_id.id', 'in', tax_codes_ids[0].ids), ('invoice_id.date_invoice', '<=', self.date_end)])
+        positive = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed > 0 and 'igic' not in r.name)
+        negative = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed < 0 and 'igic' not in r.name)
 
         res_dict = {}
         positive = sorted(positive, key=lambda x: x.invoice_id.move_id.date)
@@ -52,8 +57,8 @@ class iva_record_wizzard(models.TransientModel):
             for tax in group:
                 res_dict['negative'][key].append(tax)
         if self.igic:
-            igic_negative = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed_signed < 0 and 'igic' in r.name)
-            igic_positive = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed_signed > 0 and 'igic' in r.name)
+            igic_negative = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed < 0 and 'igic' in r.name)
+            igic_positive = invoice_tax_obj.filtered(lambda r: r.invoice_id.amount_untaxed > 0 and 'igic' in r.name)
             igic_positive = sorted(igic_positive, key=lambda x: x.invoice_id.move_id.date)
             igic_negative = sorted(igic_negative, key=lambda x: x.invoice_id.move_id.date)
             res_dict['igic_positive'] = {}
@@ -84,7 +89,7 @@ class iva_record_wizzard(models.TransientModel):
     partner_ids = fields.Many2many(comodel_name='res.partner',
                                    string='Partner',
                                    help='Déjelo vacío para todas las empresas')
-    tax_ids = fields.Many2many(comodel_name='account.code.tax', string='Taxes')
+    tax_ids = fields.Many2many(comodel_name='account.tax', string='Taxes')
 
     partner_type = fields.Selection(
         [('client', 'Cliente'), ('supplier', 'Proveedor')],
@@ -92,7 +97,7 @@ class iva_record_wizzard(models.TransientModel):
         help='Déjelo vacío para todos los tipos de factura')
     igic = fields.Boolean(string="¿Incluir IGIC?")
 
-    def print_report(self, ids, context=None):
+    def print_report(self, cr, uid, ids, context=None):
 
         return {
             'type': 'ir.actions.report.xml',

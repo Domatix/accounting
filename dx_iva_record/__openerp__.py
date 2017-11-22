@@ -33,5 +33,5 @@
     'data': ['wizard/iva_record.xml',
              'report/iva_record_report.xml',
              ],
-    'installable': False,
+    'installable': True,
 }
