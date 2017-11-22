@@ -26,7 +26,7 @@
     """,
     "website": "http://www.domatix.com/",
     'license': "GPL-3",
-    'depends': ['base', 'report'
+    'depends': ['base', 'report', 'account'
                 ],
     "update_xml": [
                    ],
