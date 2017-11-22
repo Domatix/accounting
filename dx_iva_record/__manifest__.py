@@ -1,14 +1,10 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 ##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2015 Domatix (http://www.domatix.com)
-#                       info <info@domatix.com>
-#
+#    Module created by domatix
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,22 +17,21 @@
 ##############################################################################
 
 {
-    'name': "Listado abreviado de efectos",
-    'version': "1.0",
+    'name': "Registro de iva",
+    'version': "10.0.1.0.1",
     'author': "Domatix",
     'category': 'Custom Reporting',
     'description': """
-    This module print a shorten due report
+    This module prints a custom report for IVA register
     """,
+    "website": "http://www.domatix.com/",
     'license': "GPL-3",
     'depends': ['base', 'report'
                 ],
     "update_xml": [
                    ],
-    'data': ['wizard/abridge_due_wizard.xml',
-             'data/report_paperformat.xml',
-             'report/abridge_due_report.xml',
-             'report/abridge_due_report_full.xml',
+    'data': ['wizard/iva_record.xml',
+             'report/iva_record_report.xml',
              ],
     'installable': True,
 }
