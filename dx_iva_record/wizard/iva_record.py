@@ -18,14 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import models, fields, api
-from datetime import datetime
+from odoo import models, fields
 from itertools import groupby
 
 
 class iva_record_wizzard(models.TransientModel):
     _name = 'dx_iva_record.iva_record_wizard'
-
 
     def get_data(self):
         if self.partner_type == 'supplier':
@@ -74,9 +72,9 @@ class iva_record_wizzard(models.TransientModel):
         return res_dict.items()
 
     company_id = fields.Many2one('res.company', 'Company',
-                                   help='Company',
-                                   required=True,
-                                   default=lambda self: self.env.user.company_id)
+                                 help='Company',
+                                 required=True,
+                                 default=lambda self: self.env.user.company_id)
     date_start = fields.Date(
         string='Start date')
     date_end = fields.Date(
