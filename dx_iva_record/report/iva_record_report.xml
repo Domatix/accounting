@@ -1,177 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Domatix - Juan Cuesta Contreras
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-  <data>
-    <template id="dx_iva_record.report_iva_record" name="Registro de iva">
-      <t t-call="report.html_container">
-        <t t-foreach="docs" t-as="o">
-          <t t-foreach="o.get_data()" t-as="data">
-            <t t-if="len(data)">
-              <t t-call="report.external_layout">
-                <div class="page">
-                  <div class="row mt32 mb32">
-                    <div class="col-xs-3">
-                      <strong>Compañia:</strong>
-                      <p t-esc="o.company_id.name"/>
-                    </div>
-                    <div class="col-xs-3">
-                      <strong>Tipo</strong>
-                      <p t-esc="data[0]"/>
-                    </div>
-                    <div class="col-xs-3">
-                      <strong>Fechas:</strong>
-                      <p>
-                        Fecha inicio:
-                        <span t-esc="o.date_start"/><br/>
-                        Fecha fin:
-                        <span t-esc="o.date_end"/>
-                      </p>
-                    </div>
-                  </div>
-                  <h1>Registro de IVA</h1>
-                  <t t-set="totalBaseF" t-value="0"/>
-                  <t t-set="totalImpuestoF" t-value="0"/>
-                  <t t-set="totalFacturaF" t-value="0"/>
-                  <t t-foreach="data[1].items()" t-as="type">
-                    <table class="table table-condensed" style="width: 100%; font-size: 12px; ">
-                      <t t-set="cabecera" t-value="1"/>
-                      <t t-set="totalBase" t-value="0"/>
-                      <t t-set="totalImpuesto" t-value="0"/>
-                      <t t-set="totalFactura" t-value="0"/>
-                      <tr t-foreach="type[1]" t-as="l">
-                        <div t-if="cabecera">
-                          <thead>
-                            <th colspan="10" style="border: solid 1px; vertical-align: middle; background-color: #E0E0E0;" t-esc="type[0]"></th>
-                            <tr style="border: solid 1px;">
-                              <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha Asiento</th>
-                              <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: center;">Cuenta</th>
-                              <th style="border: solid 1px; width:34%; vertical-align: middle;">Cliente</th>
-                              <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Cif</th>
-                              <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: center;">Factura</th>
-                              <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha</th>
-                              <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: right;">Base</th>
-                              <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: right;">Impuesto</th>
-                              <!-- <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: right;">Base+Impuesto</th> -->
-                              <th style="border: solid 1px; width:8%; vertical-align: middle; text-align: right;">Total factura</th>
-                            </tr>
-                          </thead>
-                          <t t-set="cabecera" t-value="0"/>
-                        </div>
-                        <td style="border: solid 1px; text-align: center;">
-                          <span t-esc="l.invoice_id.move_id.date"></span>
-                        </td>
-                        <td style="border: solid 1px; text-align: center;">
-                          <span t-esc="l.invoice_id.account_id.code"></span>
-                        </td>
-                        <td style="border: solid 1px;">
-                          <span t-esc="l.invoice_id.partner_id.name"></span>
-                        </td>
-                        <td style="border: solid 1px; text-align: center;">
-                          <span t-esc="l.invoice_id.partner_id.vat"></span>
-                        </td>
-                        <td style="border: solid 1px; text-align: center;">
-                          <span t-esc="l.invoice_id.display_name"></span>
-                        </td>
-                        <td style="border: solid 1px; text-align: center;">
-                          <span t-esc="l.invoice_id.date"></span>
-                        </td>
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_untaxed_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalBase" t-value="totalBase+l.invoice_id.amount_untaxed_signed"/>
-                        </td>
 
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_tax_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalImpuesto" t-value="totalImpuesto+l.invoice_id.amount_tax_signed"/>
-                        </td>
-                        <!-- <td style="border: solid 1px; text-align: right;">
+  <template id="dx_iva_record.report_iva_record" name="Registro de iva">
+    <t t-call="report.html_container">
+      <t t-foreach="docs" t-as="o">
+        <t t-foreach="o.get_data()" t-as="data">
+          <t t-if="len(data)">
+            <t t-call="report.external_layout">
+              <div class="page">
+                <div class="row mt32 mb32">
+                  <div class="col-xs-3">
+                    <strong>Compañia:</strong>
+                    <p t-esc="o.company_id.name"/>
+                  </div>
+                  <div class="col-xs-3">
+                    <strong>Tipo</strong>
+                    <t t-if="data[0] == 'positive'">
+                      <span>Facturas</span>
+                    </t>
+                    <t t-if="data[0] == 'negative'">
+                      <span>Devoluciones</span>
+                    </t>
+                    <t t-if="data[0] == 'igic_positive'">
+                      <span>Facturas IGIC</span>
+                    </t>
+                    <t t-if="data[0] == 'igic_negative'">
+                      <span>Devoluciones IGIC</span>
+                    </t>
+                  </div>
+
+                  <div class="col-xs-3">
+                    <strong>Fechas:</strong>
+                    <p>
+                      Fecha inicio:
+                      <span t-esc="o.date_start"/><br/>
+                      Fecha fin:
+                      <span t-esc="o.date_end"/>
+                    </p>
+                  </div>
+                </div>
+                <h1>Registro de IVA</h1>
+                <t t-set="totalBaseF" t-value="0"/>
+                <t t-set="totalImpuestoF" t-value="0"/>
+                <t t-set="totalFacturaF" t-value="0"/>
+                <t t-foreach="data[1].items()" t-as="type">
+                  <table class="table table-condensed" style="width: 100%; font-size: 12px; ">
+                    <t t-set="cabecera" t-value="1"/>
+                    <t t-set="totalBase" t-value="0"/>
+                    <t t-set="totalImpuesto" t-value="0"/>
+                    <t t-set="totalFactura" t-value="0"/>
+                    <tr t-foreach="type[1]" t-as="l">
+                      <div t-if="cabecera">
+                        <thead>
+                          <th colspan="10" style="border: solid 1px; vertical-align: middle; background-color: #E0E0E0;" t-esc="type[0]"></th>
+                          <tr style="border: solid 1px;">
+                            <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha Asiento</th>
+                            <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: center;">Cuenta</th>
+                            <th style="border: solid 1px; width:34%; vertical-align: middle;">Cliente</th>
+                            <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Cif</th>
+                            <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: center;">Factura</th>
+                            <th style="border: solid 1px; width:10%; vertical-align: middle; text-align: center;">Fecha</th>
+                            <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: right;">Base</th>
+                            <th style="border: solid 1px; width:7%; vertical-align: middle; text-align: right;">Impuesto</th>
+                            <!-- <th style="border: solid 1px; width:6%; vertical-align: middle; text-align: right;">Base+Impuesto</th> -->
+                            <th style="border: solid 1px; width:8%; vertical-align: middle; text-align: right;">Total factura</th>
+                          </tr>
+                        </thead>
+                        <t t-set="cabecera" t-value="0"/>
+                      </div>
+                      <td style="border: solid 1px; text-align: center;">
+                        <span t-esc="l.invoice_id.move_id.date"></span>
+                      </td>
+                      <td style="border: solid 1px; text-align: center;">
+                        <span t-esc="l.invoice_id.account_id.code"></span>
+                      </td>
+                      <td style="border: solid 1px;">
+                        <span t-esc="l.invoice_id.partner_id.name"></span>
+                      </td>
+                      <td style="border: solid 1px; text-align: center;">
+                        <span t-esc="l.invoice_id.partner_id.vat"></span>
+                      </td>
+                      <td style="border: solid 1px; text-align: center;">
+                        <span t-esc="l.invoice_id.display_name"></span>
+                      </td>
+                      <td style="border: solid 1px; text-align: center;">
+                        <span t-esc="l.invoice_id.date"></span>
+                      </td>
+                      <td style="border: solid 1px; text-align: right;">
+                        <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_untaxed_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalBase" t-value="totalBase+l.invoice_id.amount_untaxed_signed"/>
+                      </td>
+
+                      <td style="border: solid 1px; text-align: right;">
+                        <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_tax_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalImpuesto" t-value="totalImpuesto+l.invoice_id.amount_tax_signed"/>
+                      </td>
+                      <!-- <td style="border: solid 1px; text-align: right;">
                       <span t-esc="'{0:,.2f}'.format(l['total']).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
                     </td> -->
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_total_company_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalFactura" t-value="totalFactura+l.invoice_id.amount_total_company_signed"/>
-                        </td>
+                      <td style="border: solid 1px; text-align: right;">
+                        <span t-esc="'{0:,.2f}'.format(l.invoice_id.amount_total_company_signed).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalFactura" t-value="totalFactura+l.invoice_id.amount_total_company_signed"/>
+                      </td>
 
-                      </tr>
-                      <tr>
-                        <td></td>
-
-                        <td></td>
-
-                        <td></td>
-
-                        <td></td>
-
-                        <td></td>
-
-                        <td style="border: solid 1px; text-align: right; font-weight: bold;  ">
-                          Total
-                        </td>
-
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(totalBase).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalBaseF" t-value="totalBaseF+totalBase"/>
-                        </td>
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(totalImpuesto).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalImpuestoF" t-value="totalImpuestoF+totalImpuesto"/>
-                        </td>
-                        <td style="border: solid 1px; text-align: right;">
-                          <span t-esc="'{0:,.2f}'.format(totalFactura).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
-                          <t t-set="totalFacturaF" t-value="totalFacturaF+totalFactura"/>
-                        </td>
-
-                      </tr>
-                    </table>
-                  </t>
-
-                  <br></br>
-                  <table class="table table-condensed" style="width: 32%; font-size: 12px; float: right; page-break-inside: avoid;">
-                    <th colspan="10" style="border: solid 1px; vertical-align: middle; background-color: #E0E0E0;">Totales</th>
-                    <tr style="border: solid 1px;">
-                      <th style="border: solid 1px; width:30%; vertical-align: middle; text-align: right;">Base</th>
-                      <th style="border: solid 1px; width:30%; vertical-align: middle; text-align: right;">Impuesto</th>
-                      <th style="border: solid 1px; width:40%; vertical-align: middle; text-align: right;">Total factura</th>
                     </tr>
                     <tr>
+                      <td></td>
+
+                      <td></td>
+
+                      <td></td>
+
+                      <td></td>
+
+                      <td></td>
+
+                      <td style="border: solid 1px; text-align: right; font-weight: bold;  ">
+                        Total
+                      </td>
+
                       <td style="border: solid 1px; text-align: right;">
-                        <span t-esc="'{0:,.2f}'.format(totalBaseF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <span t-esc="'{0:,.2f}'.format(totalBase).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalBaseF" t-value="totalBaseF+totalBase"/>
                       </td>
                       <td style="border: solid 1px; text-align: right;">
-                        <span t-esc="'{0:,.2f}'.format(totalImpuestoF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <span t-esc="'{0:,.2f}'.format(totalImpuesto).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalImpuestoF" t-value="totalImpuestoF+totalImpuesto"/>
                       </td>
                       <td style="border: solid 1px; text-align: right;">
-                        <span t-esc="'{0:,.2f}'.format(totalFacturaF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <span t-esc="'{0:,.2f}'.format(totalFactura).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                        <t t-set="totalFacturaF" t-value="totalFacturaF+totalFactura"/>
                       </td>
 
                     </tr>
                   </table>
-                </div>
-              </t>
+                </t>
+
+                <br></br>
+                <table class="table table-condensed" style="width: 32%; font-size: 12px; float: right; page-break-inside: avoid;">
+                  <th colspan="10" style="border: solid 1px; vertical-align: middle; background-color: #E0E0E0;">Totales</th>
+                  <tr style="border: solid 1px;">
+                    <th style="border: solid 1px; width:30%; vertical-align: middle; text-align: right;">Base</th>
+                    <th style="border: solid 1px; width:30%; vertical-align: middle; text-align: right;">Impuesto</th>
+                    <th style="border: solid 1px; width:40%; vertical-align: middle; text-align: right;">Total factura</th>
+                  </tr>
+                  <tr>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(totalBaseF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(totalImpuestoF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+                    <td style="border: solid 1px; text-align: right;">
+                      <span t-esc="'{0:,.2f}'.format(totalFacturaF).replace('.','%temp%').replace(',','.').replace('%temp%',',')"></span>
+                    </td>
+
+                  </tr>
+                </table>
+              </div>
             </t>
           </t>
         </t>
       </t>
-    </template>
-    <report id="report_record_iva" string="IVA record" model="dx_iva_record.iva_record_wizard" report_type="qweb-pdf" name="dx_iva_record.report_iva_record" file="dx_iva_record.report_iva_record" menu="False"/>
+    </t>
+  </template>
+  <report id="report_record_iva" string="IVA record" model="dx_iva_record.iva_record_wizard" report_type="qweb-pdf" name="dx_iva_record.report_iva_record" file="dx_iva_record.report_iva_record" menu="False"/>
 
-    <record id="paperformat_iva_record" model="report.paperformat">
-      <field name="name">Iva Record</field>
-      <field name="format">A4</field>
-      <field name="page_height">0</field>
-      <field name="page_width">0</field>
-      <field name="orientation">Landscape</field>
-      <field name="margin_top">30</field>
-      <field name="margin_bottom">20</field>
-      <field name="margin_left">7</field>
-      <field name="margin_right">7</field>
-      <field name="header_line" eval="False"/>
-      <field name="header_spacing">25</field>
-      <field name="dpi">90</field>
-    </record>
+  <record id="paperformat_iva_record" model="report.paperformat">
+    <field name="name">Iva Record</field>
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Landscape</field>
+    <field name="margin_top">30</field>
+    <field name="margin_bottom">20</field>
+    <field name="margin_left">7</field>
+    <field name="margin_right">7</field>
+    <field name="header_line" eval="False"/>
+    <field name="header_spacing">25</field>
+    <field name="dpi">90</field>
+  </record>
 
-    <record id="dx_iva_record.report_record_iva" model="ir.actions.report.xml">
-      <field name="paperformat_id" ref="dx_iva_record.paperformat_iva_record"/>
-    </record>
+  <record id="dx_iva_record.report_record_iva" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="dx_iva_record.paperformat_iva_record"/>
+  </record>
 
-  </data>
 </odoo>
