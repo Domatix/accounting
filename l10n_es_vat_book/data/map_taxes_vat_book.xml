@@ -41,6 +41,10 @@
           (4, ref('l10n_es.account_tax_code_template_REBI05')),
           (4, ref('l10n_es.account_tax_code_template_REBI52')),
           (4, ref('l10n_es.account_tax_code_template_MBYCDRDERBI')),
+          (4, ref('l10n_es.account_tax_code_template_EYOA')),
+          (4, ref('l10n_es.account_tax_code_template_AIBBI')),
+          (4, ref('l10n_es.account_tax_code_template_EIDB')),
+          (4, ref('l10n_es.account_tax_code_template_PDSI')),
           ]"/>
     </record>
 
