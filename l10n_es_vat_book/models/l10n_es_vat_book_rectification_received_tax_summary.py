@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
+#
+#    Copyright (c) 2017 Praxya (http://praxya.com/)
+#                       Daniel Rodriguez Lijo <drl.9319@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -14,4 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import iva_record
+from openerp import models
+
+
+class L10nEsVatBookRectificationReceivedTaxSummary(models.Model):
+    _inherit = 'l10n.es.vat.book.issued.tax.summary'
+    _name = 'l10n.es.vat.book.rectification.received.tax.summary'
