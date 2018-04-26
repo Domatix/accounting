@@ -13,7 +13,7 @@ Uso
 
 
 1. Ir a Configuración > Compañías > Múltiples NIF.
-2. Añadir el pañis que se necesite junto con el IVA asociado y la identificación
+2. Añadir el país que se necesite junto con el IVA asociado y la identificación
 
 Créditos
 ========
