@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_company_multiple_vats_form" model="ir.ui.view">
+    <field name="name">view.company_multiple_vats.form</field>
+    <field name="model">res.company</field>
+    <field name='inherit_id' ref='base.view_company_form'/>
+    <field name="arch" type="xml">
+      <xpath expr="//form/sheet/notebook" position="inside">
+
+
+          <page string="Multiple Vat" name="multiple_vat">
+               <group>
+                  <field name="vat_ids">
+                  <tree string="Multiple Vat" editable="bottom">
+                    <field name="country_id" required="1"/>
+                    <field name="iso_code"/>
+                    <field name="tax_id" required="1"/>
+                    <field name="vat" />
+                  </tree>
+                </field>
+               </group>
+          </page>
+          </xpath>
+    </field>
+    </record>
+
+  </data>
+</odoo>

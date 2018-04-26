@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="external_layout_footer" inherit_id="report.external_layout_footer">
+      <xpath expr="//ul[@name='financial_infos']" position="inside">
+          <t t-if="not company.custom_footer">
+              <!-- <t t-set="is_first" t-value="True"/> -->
+              <t t-foreach="company.vat_ids" t-as="vat">
+                  <!-- <li t-if="(is_first and company.vat) or (not is_first)">&amp;bull;</li> -->
+                  <li t-if="o.partner_id.country_id.code == vat.iso_code"><span t-esc="vat.vat"/></li>
+                    <!-- <t t-set="is_first" t-value="False"/> -->
+                  </t>
+              </t>
+      </xpath>
+    </template>
+</data>
+
+</odoo>

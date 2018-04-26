@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dx_merge_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-26 07:15+0000\n"
+"PO-Revision-Date: 2018-04-26 07:15+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:60
+#, python-format
+msgid "Advance: %s"
+msgstr "Advance: %s"
+
+#. module: dx_merge_invoice
+#: model:ir.actions.act_window,name:dx_merge_invoice.action_merge_sale_order_by_channel
+msgid "Agrupar Facturas por canal"
+msgstr "Agrupar Facturas por canal"
+
+#. module: dx_merge_invoice
+#: model:ir.ui.view,arch_db:dx_merge_invoice.group_by_channel_sales
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_advance_payment_inv_date_invoice
+msgid "Date Invoice"
+msgstr "Fecha Factura"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:99
+#, python-format
+msgid "Down Payment"
+msgstr "Down Payment"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:96
+#, python-format
+msgid "Down payment of %s%%"
+msgstr "Down payment of %s%%"
+
+#. module: dx_merge_invoice
+#: model:ir.model,name:dx_merge_invoice.model_sale_order_group_channel
+msgid "Group Sale orders by channel"
+msgstr "Agrupar pedidos de venta por canal"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_account_invoice_merged
+msgid "Group by partner"
+msgstr "Agrupar por cliente"
+
+#. module: dx_merge_invoice
+#: model:ir.ui.view,arch_db:dx_merge_invoice.group_by_channel_sales
+msgid "Group sales"
+msgstr "Agrupar pedidos"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_id
+msgid "ID"
+msgstr "ID"
+
+#. module: dx_merge_invoice
+#: model:ir.model,name:dx_merge_invoice.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: dx_merge_invoice
+#: sql_constraint:account.invoice:0
+msgid "Invoice number must be unique."
+msgstr "El número de factura debe de ser único."
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,help:dx_merge_invoice.field_sale_order_group_channel_partner_id
+msgid "Invoice partner"
+msgstr "Factura cliente"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: dx_merge_invoice
+#: model:ir.model.fields,field_description:dx_merge_invoice.field_sale_order_group_channel_partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_group.py:43
+#, python-format
+msgid "Sale orders must be to invoice and confirmed"
+msgstr "Los pedidos de vente deben de ser para facturar y estar confirmados"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_group.py:39
+#, python-format
+msgid "Sale orders with different channels"
+msgstr "Pedidos con diferentes canales"
+
+#. module: dx_merge_invoice
+#: model:ir.model,name:dx_merge_invoice.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Ventas. Anticipo pago factura"
+
+#. module: dx_merge_invoice
+#: model:ir.model,name:dx_merge_invoice.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:53
+#, python-format
+msgid "The product used to invoice a down payment should be of type 'Service'. Please use another product or update this product."
+msgstr "The product used to invoice a down payment should be of type 'Service'. Please use another product or update this product."
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:51
+#, python-format
+msgid "The product used to invoice a down payment should have an invoice policy set to \"Ordered quantities\". Please update your deposit product to be able to create a deposit invoice."
+msgstr "The product used to invoice a down payment should have an invoice policy set to \"Ordered quantities\". Please update your deposit product to be able to create a deposit invoice."
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:93
+#, python-format
+msgid "The value of the down payment amount must be positive."
+msgstr "The value of the down payment amount must be positive."
+
+#. module: dx_merge_invoice
+#: code:addons/dx_merge_invoice/wizard/sale_invoices.py:89
+#, python-format
+msgid "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
+msgstr "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
