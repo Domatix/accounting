@@ -1,0 +1,94 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dx_account_auto_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-12 07:55+0000\n"
+"PO-Revision-Date: 2018-03-12 07:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dx_account_auto_payment
+#: model:ir.actions.act_window,name:dx_account_auto_payment.auto_payment_action
+#: model:ir.ui.menu,name:dx_account_auto_payment.auto_payment_menu
+#: model:ir.ui.view,arch_db:dx_account_auto_payment.view_auto_payment_form
+#: model:ir.ui.view,arch_db:dx_account_auto_payment.view_auto_payment_tree
+msgid "Auto Payment"
+msgstr "Pagos Automáticos"
+
+#. module: dx_account_auto_payment
+#: model:ir.actions.act_window,help:dx_account_auto_payment.auto_payment_action
+msgid "Click to create an auto payment invoice"
+msgstr "Pulsa para poder realizar pagos automáticos"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_id
+msgid "ID"
+msgstr "ID"
+
+#. module: dx_account_auto_payment
+#: model:ir.model,name:dx_account_auto_payment.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: dx_account_auto_payment
+#: sql_constraint:account.payment.auto:0
+msgid "Only one auto payment record can be saved"
+msgstr "Solo un registro de pagos automáticos puede ser guardado. Edita el existente."
+
+#. module: dx_account_auto_payment
+#: model:ir.ui.view,arch_db:dx_account_auto_payment.view_auto_payment_form
+msgid "Payment"
+msgstr "Pago"
+
+#. module: dx_account_auto_payment
+#: model:ir.model.fields,field_description:dx_account_auto_payment.field_account_payment_auto_payment_ids
+msgid "Payment mode"
+msgstr "Modo de pago"
+
+#. module: dx_account_auto_payment
+#: model:ir.model,name:dx_account_auto_payment.model_account_payment_auto
+msgid "account.payment.auto"
+msgstr "account.payment.auto"

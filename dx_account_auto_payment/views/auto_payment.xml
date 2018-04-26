@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_auto_payment_form" model="ir.ui.view">
+      <field name="name">view.auto_payment.form</field>
+      <field name="model">account.payment.auto</field>
+      <field name="arch" type="xml">
+        <form string="Auto Payment">
+          <sheet>
+            <group name="main">
+              <field name="name" invisible="1" />
+              <field name="payment_ids">
+                <tree string="Payment">
+                  <field name="name" />
+                </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_auto_payment_tree" model="ir.ui.view">
+        <field name="name">view.auto_payment.tree</field>
+        <field name="model">account.payment.auto</field>
+        <field name="arch" type="xml">
+            <tree string="Auto Payment">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="auto_payment_action" model="ir.actions.act_window">
+      <field name="name">Auto Payment</field>
+      <field name="res_model">account.payment.auto</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create an auto payment invoice
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="auto_payment_menu" parent="payment.root_payment_menu"
+      action="auto_payment_action" sequence="20"/>
+
+  </data>
+</odoo>
